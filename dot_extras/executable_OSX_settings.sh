@@ -46,9 +46,6 @@ defaults -currentHost write  com.apple.controlcenter UserSwitcher -int 24
 defaults -currentHost write com.apple.Spotlight MenuItemHidden -int 1
 defaults -currentHost write  com.apple.controlcenter NowPlaying -int 24
 
-# Works only with disabled SIP
-# sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-
 echo ""
 echo "Disabling OS X Gate Keeper"
 echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
@@ -74,10 +71,6 @@ echo ""
 echo "Displaying ASCII control characters using caret notation in standard text views"
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
-#echo ""
-#echo "Disabling system-wide resume"
-#defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
-
 echo ""
 echo "Disabling automatic termination of inactive apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -86,6 +79,7 @@ echo ""
 echo "Saving to disk (not to iCloud) by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
+# Test if is working on Monteray
 echo ""
 echo "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
@@ -158,7 +152,7 @@ defaults write com.apple.BezelServices kDimTime -int 300
 
 echo ""
 echo "Requiring password immediately after sleep or screen saver begins"
-defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPassword -bool true 
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 echo ""
@@ -203,10 +197,6 @@ echo " show hidden files by default "
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
 echo ""
-echo "Show path bar in Finder"
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-
-echo ""
 echo "Disabling the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
@@ -248,7 +238,8 @@ echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you donâ€™t use
 # the Dock to launch apps.
-#defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock recent-apps -array
 
 echo ""
 echo "Setting the icon size of Dock items to 36 pixels for optimal size/screen-realestate"
@@ -331,13 +322,10 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 
 echo ""
 echo "Enabling the Develop menu and the Web Inspector in Safari"
+defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-
-echo ""
-echo "Adding a context menu item for showing the Web Inspector in web views"
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 
 ###############################################################################
@@ -358,10 +346,6 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
 echo ""
 echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-echo ""
-echo "Time Machine Backup Schedule Frequency every 6 hours"
-sudo defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 21600
 
 echo ""
 echo "Disabling local Time Machine backups"
