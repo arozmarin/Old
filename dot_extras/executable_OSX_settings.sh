@@ -17,6 +17,9 @@
 
 sudo -v
 
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 echo "Ales Rozmarin personal settings for MacOSX"
 
 ###############################################################################
@@ -79,8 +82,8 @@ echo ""
 echo "Disabling automatic termination of inactive apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
-#echo ""
-#echo "Saving to disk (not to iCloud) by default"
+echo ""
+echo "Saving to disk (not to iCloud) by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 echo ""
@@ -99,6 +102,10 @@ echo ""
 echo "Disable smart quotes and smart dashes as theyâ€™re annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+echo ""
+echo "Disable Resume system-wide"
+defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 
 ###############################################################################
@@ -136,6 +143,12 @@ defaults write -g com.apple.trackpad.scaling 2
 defaults write -g com.apple.mouse.scaling 2.5
 
 echo ""
+echo "Trackpad: enable tap to click for this user and for the login screen"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+echo ""
 echo "Turn off keyboard illumination when computer is not used for 5 minutes"
 defaults write com.apple.BezelServices kDimTime -int 300
 
@@ -146,7 +159,7 @@ defaults write com.apple.BezelServices kDimTime -int 300
 echo ""
 echo "Requiring password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 2
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 echo ""
 echo "Enabling subpixel font rendering on non-Apple LCDs"
@@ -177,13 +190,17 @@ echo "Showing all filename extensions in Finder by default"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 echo ""
-echo "Showing status bar in Finder by default"
+echo "Showing status bar and path bar in Finder by default"
 defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowPathbar -bool true
 
 echo ""
 echo "Allowing text selection in Quick Look/Preview in Finder by default"
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
+echo ""
+echo " show hidden files by default "
+defaults write com.apple.finder AppleShowAllFiles -bool true
 
 echo ""
 echo "Show path bar in Finder"
@@ -195,11 +212,21 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
 echo ""
 echo "Use column view in all Finder windows by default"
-defaults write com.apple.finder FXPreferredViewStyle Nlsv
+defaults write com.apple.finder FXPreferredViewStyle "Nlsv"
 
 echo ""
-echo "Avoiding the creation of .DS_Store files on network volumes"
+echo "Avoiding the creation of .DS_Store files on network and USB volumes"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+echo ""
+echo "Keep folders on top when sorting by name"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+echo ""
+echo " When performing a search, search the current folder by default"
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
 
 #echo ""
 #echo "Disabling disk image verification"
@@ -240,10 +267,31 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 
 echo ""
 echo "Hot corners Setting"
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+# 14: Quick Notes
+# Top left screen cornercc
 defaults write com.apple.dock wvous-tl-corner -int 0
+defaults write com.apple.dock wvous-tl-modifier -int 0
+# Top right screen corner
 defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 0
+# Bottom left screen corner
 defaults write com.apple.dock wvous-bl-corner -int 13
+defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom right screen corner
 defaults write com.apple.dock wvous-br-corner -int 14
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 echo ""
 echo "Disable all Dock animations when opening"
@@ -338,10 +386,12 @@ echo "Speeding up wake from sleep to 24 hours from an hour"
 # http://www.cultofmac.com/221392/quick-hack-speeds-up-retina-macbooks-wake-from-sleep-os-x-tips/
 sudo pmset -a standbydelay 86400
 
-#echo ""
-#echo "Disable computer sleep and stop the display from shutting off"
-#sudo pmset -a sleep 0
-#sudo pmset -a displaysleep 0
+echo ""
+echo "Disable computer sleep and stop the display from shutting off"
+sudo pmset -a sleep 0
+sudo pmset -a displaysleep 30
+sudo systemsetup -setcomputersleep Off > /dev/null
+
 
 #echo ""
 #echo "Disable annoying backswipe in Chrome"
