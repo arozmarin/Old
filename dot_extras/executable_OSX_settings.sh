@@ -360,34 +360,29 @@ hash tmutil &> /dev/null && sudo tmutil disable
 
 
 ###############################################################################
-# Personal Additions from philipashlock
+# System 
 ###############################################################################
 
 echo ""
 echo "Disable hibernation (speeds up entering sleep mode)"
+# Enforce system hibernation and evict FileVault keys from memory
+# instead of traditional sleep to memory.
+# Hibernation mode
+# 0: Disable hibernation (speeds up entering sleep mode)
+# 3: Copy RAM to disk so the system state can still be restored in case of a
+#    power failure.
+# 25: Force copying RAM to di sk always
 sudo pmset -a hibernatemode 0
 
-
 echo ""
-echo "Disable the sudden motion sensor as itâ€™s not useful for SSDs"
+echo "Disable the sudden motion sensor as its not useful for SSDs"
 sudo pmset -a sms 0
-
-echo ""
-echo "Speeding up wake from sleep to 24 hours from an hour"
-# http://www.cultofmac.com/221392/quick-hack-speeds-up-retina-macbooks-wake-from-sleep-os-x-tips/
-sudo pmset -a standbydelay 86400
 
 echo ""
 echo "Disable computer sleep and stop the display from shutting off"
 sudo pmset -a sleep 0
-sudo pmset -a displaysleep 30
+sudo pmset -a displaysleep 15
 sudo systemsetup -setcomputersleep Off > /dev/null
-
-
-#echo ""
-#echo "Disable annoying backswipe in Chrome"
-#defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-
 
 ###############################################################################
 # Personal Additions
