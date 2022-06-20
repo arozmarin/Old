@@ -73,11 +73,6 @@ echo ""
 echo "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
-echo ""
-echo "Displaying ASCII control characters using caret notation in standard text views"
-defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
-
 echo ""
 echo "Disabling automatic termination of inactive apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -86,28 +81,37 @@ echo ""
 echo "Saving to disk (not to iCloud) by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-# Test if is working on Monteray
-echo ""
-echo "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
 echo ""
 echo "Never go into computer sleep mode"
 systemsetup -setcomputersleep Off > /dev/null
+
+echo ""
+echo "Disable hibernation (speeds up entering sleep mode)"
+# Enforce system hibernation and evict FileVault keys from memory
+# instead of traditional sleep to memory.
+# Hibernation mode
+# 0: Disable hibernation (speeds up entering sleep mode)
+# 3: Copy RAM to disk so the system state can still be restored in case of a
+#    power failure.
+# 25: Force copying RAM to di sk always
+sudo pmset -a hibernatemode 0
+
+echo ""
+echo "Disable the sudden motion sensor as its not useful for SSDs"
+sudo pmset -a sms 0
+
+echo ""
+echo "Disable computer sleep and stop the display from shutting off"
+sudo pmset -a sleep 0
+sudo pmset -a displaysleep 15
 
 echo ""
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 echo ""
-echo "Disable smart quotes and smart dashes as theyâ€™re annoying when typing code"
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-
-echo ""
 echo "Disable Resume system-wide"
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
-
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
@@ -135,10 +139,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 12
 defaults write NSGlobalDomain KeyRepeat -int 1
 
 echo ""
-echo "Enable auto-correct"
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
-
-echo ""
 echo "Setting trackpad & mouse speed to a reasonable number"
 defaults write -g com.apple.trackpad.scaling 2
 defaults write -g com.apple.mouse.scaling 2.5
@@ -148,6 +148,7 @@ echo "Trackpad: enable tap to click for this user and for the login screen"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+sudo defaults write com.apple.AppleMultitouchTrackpad Clicking 1
 
 echo ""
 echo "Turn off keyboard illumination when computer is not used for 5 minutes"
@@ -358,31 +359,6 @@ echo ""
 echo "Disabling local Time Machine backups"
 hash tmutil &> /dev/null && sudo tmutil disable
 
-
-###############################################################################
-# System 
-###############################################################################
-
-echo ""
-echo "Disable hibernation (speeds up entering sleep mode)"
-# Enforce system hibernation and evict FileVault keys from memory
-# instead of traditional sleep to memory.
-# Hibernation mode
-# 0: Disable hibernation (speeds up entering sleep mode)
-# 3: Copy RAM to disk so the system state can still be restored in case of a
-#    power failure.
-# 25: Force copying RAM to di sk always
-sudo pmset -a hibernatemode 0
-
-echo ""
-echo "Disable the sudden motion sensor as its not useful for SSDs"
-sudo pmset -a sms 0
-
-echo ""
-echo "Disable computer sleep and stop the display from shutting off"
-sudo pmset -a sleep 0
-sudo pmset -a displaysleep 15
-sudo systemsetup -setcomputersleep Off > /dev/null
 
 ###############################################################################
 # Personal Additions
