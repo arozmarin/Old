@@ -34,8 +34,9 @@ for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
   defaults write "${domain}" dontAutoLoad -array \
     "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
 done
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
+# No more in Monterey
+#defaults write com.apple.systemuiserver menuExtras -array \
+#  "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 echo ""
 echo "Hide Siri, Volume, User and Bluetooth in menu bar"
@@ -46,11 +47,17 @@ defaults -currentHost write  com.apple.controlcenter UserSwitcher -int 24
 defaults -currentHost write com.apple.Spotlight MenuItemHidden -int 1
 defaults -currentHost write  com.apple.controlcenter NowPlaying -int 24
 
-echo ""
-echo "Disabling OS X Gate Keeper"
-echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
-sudo spctl --master-disable
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+#echo ""
+#echo "Disabling OS X Gate Keeper"
+#echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
+#sudo spctl --master-disable
+#same result as spctl --master-disable and Gateskeeper won't check any file "Not recommended"
+#defaults write com.apple.LaunchServices LSQuarantine -bool false
+# remove quarantine for single file
+#xattr -d com.apple.quarantine /path-to-quarantined-file
+# Turn quarantine back on, use one of follow commands
+#defaults write com.apple.LaunchServices LSQuarantine -bool true
+#defaults delete com.apple.LaunchServices
 
 echo ""
 echo "Increasing the window resize speed for Cocoa applications"
