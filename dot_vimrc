@@ -43,3 +43,5 @@ map <F5> :NERDTreeToggle<CR>
 
 " Run Terminal
 let g:floaterm_keymap_toggle = '<F6>'
+
+autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
