@@ -12,9 +12,6 @@ set ruler
 " Automatically wrap text that extend beyond the screen length
 set wrap
 
-" Ask for confirmation to save
-set confirm
-
 set autoindent
 
 " Show cursor line
