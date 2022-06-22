@@ -40,7 +40,9 @@ set undolevels=100
 " Automatically wrap text that extend beyond the screen length
 set wrap
 
+" Enable autocompletion, activate with ctrl+n
 set wildmode=longest,list,full
+
 set autoindent
 set signcolumn=yes
 
