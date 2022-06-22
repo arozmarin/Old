@@ -3,22 +3,48 @@ syntax on
 colorscheme ron
 
 " Set Line number
+set relativenumber
 set number
 
 " Status bar and ruler
 set laststatus=2
 set ruler
 
+" Higlight search
+set hlsearch
+set incsearch
+nnoremap <CR> :noh<CR><CR>
+set ignorecase
+set smartcase
+
+" keep pages in buffer
+set hidden
+
+" set tab key
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set nowrap
+
+" Set scrool to sotp 8 line befor top or bottom
+set scrolloff=8
+
+" Undo and redo keep after you alredy closed vim
+set undodir=~/.vimundo
+set undofile
+set undolevels=100
+
 " Automatically wrap text that extend beyond the screen length
 set wrap
 
 set autoindent
+set signcolumn=yes
 
 " Show cursor line
 set cursorline
 
 "Vim plugins
-call plug#begin('~/.config/vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -41,5 +67,9 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  } }
 " Run NertTree
 map <F5> :NERDTreeToggle<CR>
 
-" Run Terminal
+" Run Termina
 let g:floaterm_keymap_toggle = '<F6>'
+
+" Clear unwanted white space
+autocmd BufWritePre * :%s/\s\+$//e
+
