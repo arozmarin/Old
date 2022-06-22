@@ -17,6 +17,9 @@ nnoremap <CR> :noh<CR><CR>
 set ignorecase
 set smartcase
 
+" Copy to clipboard
+set clipboard=unnamed
+
 " keep pages in buffer
 set hidden
 
