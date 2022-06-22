@@ -40,6 +40,7 @@ set undolevels=100
 " Automatically wrap text that extend beyond the screen length
 set wrap
 
+set wildmode=longest,list,full
 set autoindent
 set signcolumn=yes
 
