@@ -14,8 +14,8 @@ set ruler
 set hlsearch
 set incsearch
 nnoremap <CR> :noh<CR><CR>
-set ignorecase
-set smartcase
+"set ignorecase
+"set smartcase
 
 " keep pages in buffer
 set hidden
