@@ -58,6 +58,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
+Plug 'b3nj5m1n/kommentary'
 
 call plug#end()
 
