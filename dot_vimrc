@@ -65,6 +65,11 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
+" Icons in Neert three and show hidden files
+let NERDTreeShowHidden=1
+set UTF-8
+
+
 " Coomenting
 autocmd FileType apache setlocal commentstring=#\ %s
 
