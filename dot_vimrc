@@ -61,8 +61,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Matt-Deacalion/vim-systemd-syntax'
-
+Plug 'prettier/vim-prettier', {'do': 'yarn install --frozen-lockfile --production','branch': 'release/0.x'}
 call plug#end()
 
 " Icons in Neert three and show hidden files
