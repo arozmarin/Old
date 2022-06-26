@@ -61,7 +61,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
-
+Plug 'Matt-Deacalion/vim-systemd-syntax'
 
 call plug#end()
 
