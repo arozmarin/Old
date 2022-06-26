@@ -13,9 +13,11 @@ set ruler
 " Higlight search
 set hlsearch
 set incsearch
-nnoremap <CR> :noh<CR><CR>
-" set ignorecase
-" set smartcase
+set ignorecase
+set smartcase
+
+" Clear highlighting on escape in normal mode
+nnoremap <silent> <Esc><Esc> :let @/=""<CR>
 
 " Copy to clipboard
 set clipboard=unnamed
@@ -58,6 +60,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
+
+
 
 call plug#end()
 
