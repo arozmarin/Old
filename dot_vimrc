@@ -67,7 +67,7 @@ call plug#end()
 " Icons in Neert three and show hidden files
 let NERDTreeShowHidden=1
 set encoding=UTF-8
-
+packloadall
 
 " Coomenting
 autocmd FileType apache setlocal commentstring=#\ %s
