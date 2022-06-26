@@ -14,8 +14,8 @@ set ruler
 set hlsearch
 set incsearch
 nnoremap <CR> :noh<CR><CR>
-set ignorecase
-set smartcase
+" set ignorecase
+" set smartcase
 
 " Copy to clipboard
 set clipboard=unnamed
@@ -58,9 +58,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
-Plug 'b3nj5m1n/kommentary'
 
 call plug#end()
+
+" Coomenting
+autocmd FileType apache setlocal commentstring=#\ %s
 
 " Lightline configuretion
 let g:lightline = {
