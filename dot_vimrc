@@ -2,6 +2,11 @@
 syntax on
 colorscheme ron
 
+set showtabline=2
+
+"Enable mouse
+set mouse=a
+
 " Set Line number
 set relativenumber
 set number
@@ -61,11 +66,12 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
-Plug 'prettier/vim-prettier', {'do': 'yarn install --frozen-lockfile --production','branch': 'release/0.x'}
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 call plug#end()
 
 " Icons in Neert three and show hidden files
 let NERDTreeShowHidden=1
+let NERDTreeMapOpenInTab='<ENTER>'
 set encoding=UTF-8
 packloadall
 
